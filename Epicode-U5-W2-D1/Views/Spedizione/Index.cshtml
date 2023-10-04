@@ -1,0 +1,29 @@
+﻿@model Epicode_U5_W2_D1.Models.SpedizioneModel
+
+@{
+    ViewBag.Title = "Spedizione";
+}
+
+@if(User.IsInRole("Admin") || User.IsInRole(Model.username))
+{
+    @Html.ActionLink("Aggiungi aggiornamenti", "AggiungiAggiornamento", new { id = Url.RequestContext.RouteData.Values["id"] })
+}
+
+
+
+<h2>Spedizione</h2>
+
+@Model.PkSpedizione
+@Model.NomeDestinatario
+@Model.CFDestinatario
+@Model.Peso
+@Model.Destinazione
+@Model.DataSpedizione
+@Model.DataPrevista
+@Model.NomeMittente
+@Model.Stato
+@Model.username
+
+
+@Html.ActionLink("Visualizza aggiornamenti", "Aggiornamenti", new { id = Model.PkSpedizione })
+

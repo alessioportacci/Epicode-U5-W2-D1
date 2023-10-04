@@ -1,0 +1,39 @@
+﻿@model Epicode_U5_W2_D1.Models.AddAggiornamentoModel
+
+@{
+    ViewBag.Title = "AggiungiAggiornamento";
+}
+
+<h2>AggiungiAggiornamento</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row row-cols-1">
+        <div>
+            @Html.LabelFor(m => m.Aggiornamento, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Aggiornamento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Aggiornamento)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CittaCorrente, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.CittaCorrente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.CittaCorrente)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.FkStato, htmlAttributes: new { @class = "form-label" })
+            @Html.DropDownList("FkStato", new SelectList(ViewBag.Stati, "value", "text"), new {@class="form-control"})
+            @Html.ValidationMessageFor(m => m.FkStato)
+        </div>
+
+        <div>
+            @Html.EditorFor(m => m.FkSpedizione, new { htmlAttributes = new { @class = "form-control d-none", @Value = Url.RequestContext.RouteData.Values["id"]} })
+        </div>
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-primary" />
+
+}

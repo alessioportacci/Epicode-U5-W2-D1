@@ -1,0 +1,67 @@
+﻿@model Epicode_U5_W2_D1.Models.SpedizioneModel
+
+@{
+    ViewBag.Title = "AggiungiSpedizione";
+}
+
+<h2>AggiungiSpedizione</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row row-cols-1">
+
+        <div>
+            @Html.LabelFor(m => m.NomeDestinatario, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.NomeDestinatario, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.NomeDestinatario)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CFDestinatario, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.CFDestinatario, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.CFDestinatario)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Peso, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Peso, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Peso)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Destinazione, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Destinazione, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Destinazione)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.DataSpedizione, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.DataSpedizione, new { htmlAttributes = new { @class = "form-control", @Type = "Date" } })
+            @Html.ValidationMessageFor(m => m.DataSpedizione)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.DataPrevista, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.DataPrevista, new { htmlAttributes = new { @class = "form-control", @Type = "Date" } })
+            @Html.ValidationMessageFor(m => m.DataPrevista)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Destinazione, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Destinazione, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Destinazione)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.NomeMittente, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.NomeMittente, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.NomeMittente)
+        </div>
+
+    </div>
+
+    <input type="submit" value="Aggiungi"/>
+
+}
+

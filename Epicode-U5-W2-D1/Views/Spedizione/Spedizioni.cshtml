@@ -1,0 +1,46 @@
+﻿@model List<Epicode_U5_W2_D1.Models.SpedizioneModel>
+@{
+    ViewBag.Title = "Spedizioni";
+}
+<h2>Spedizioni</h2>
+
+<div class="row row-cols-3">
+    <div>
+        @Html.TextBox("Citta", "", new { @placeholder = "Inserire città" })
+    </div>
+    <div>
+        @Html.TextBox("Cliente", "", new {@placeholder = "Inserire mittente"})
+    </div>
+    <div>
+        <button id="Cerca"> Cerca </button>
+    </div>
+</div>
+
+<p> Spedizioni trovate: <span id="nSpedizioni" class="fw-bold"></span></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Destinatario</th>
+            <th scope="col">Mittente</th>
+            <th scope="col">Data Spedizione</th>
+            <th scope="col">Data Prevista</th>
+            <th scope="col">Destinazione</th>
+            <th scope="col">Stato</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+        @* Viene rempito da Javascript.js *@
+    </tbody>
+</table>
+@section scripts
+{
+    <script>
+            let u = '@User.Identity.Name'
+    </script>
+
+    <script src="~/Scripts/JavaScript.js"></script>
+}
+

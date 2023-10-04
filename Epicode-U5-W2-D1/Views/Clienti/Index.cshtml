@@ -1,0 +1,19 @@
+﻿@model List<Epicode_U5_W2_D1.Models.ClienteModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (Epicode_U5_W2_D1.Models.ClienteModel cliente in Model)
+{
+    <p> @cliente.Username </p>
+    <p> @cliente.Password </p>
+    <p> @cliente.Nome </p>
+    <p> @cliente.Privato </p>
+    <p> @cliente.CF_PIVA </p>
+    <p> @cliente.Ruolo </p>
+    <hr />
+}

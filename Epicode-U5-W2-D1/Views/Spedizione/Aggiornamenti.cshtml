@@ -1,0 +1,17 @@
+﻿@model List<Epicode_U5_W2_D1.Models.AggiornamentoModel>
+@{
+    ViewBag.Title = "Aggiornamenti";
+}
+
+<h2>Aggiornamenti</h2>
+
+
+
+@foreach (Epicode_U5_W2_D1.Models.AggiornamentoModel aggiornamento in Model)
+{
+    <p>Aggiornamento: @aggiornamento.Aggiornamento</p>
+    <p>Stato: @aggiornamento.Stato</p>
+    <p>DataAggiornamento: @aggiornamento.DataAggiornamento</p>
+    <p>Citta corrente: @aggiornamento.CittaCorrente</p>
+    <hr />
+}
