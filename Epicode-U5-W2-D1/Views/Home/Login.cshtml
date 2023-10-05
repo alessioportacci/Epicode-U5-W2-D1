@@ -19,7 +19,7 @@
 
         <div>
             @Html.LabelFor(m => m.password, htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(m => m.password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(m => m.password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
             @Html.ValidationMessageFor(m => m.password)
         </div>
     </div>

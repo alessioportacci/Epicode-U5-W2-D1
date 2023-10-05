@@ -1,0 +1,54 @@
+﻿@model Epicode_U5_W2_D1.Models.ClienteModel
+
+@{
+    ViewBag.Title = "AggiungiCliente";
+}
+
+<h1>Aggiungi Cliente</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row row-cols-1">
+        <div>
+            @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Username)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Nome, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Nome)
+        </div>
+
+        <div class="my-3">
+            @Html.EditorFor(m => m.Privato, new { htmlAttributes = new { @class = "form-check-input", @type = "checkbox" } })
+            @Html.LabelFor(m => m.Privato, htmlAttributes: new { @class = "form-check-label" })
+            @Html.ValidationMessageFor(m => m.Privato)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CF_PIVA, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.CF_PIVA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.CF_PIVA)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Ruolo, htmlAttributes: new { @class = "form-label" })
+            @Html.EditorFor(m => m.Ruolo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Ruolo)
+        </div>
+
+    </div>
+
+    <input type="submit" value="Aggiungi" class="btn btn-primary mt-3" />
+
+}

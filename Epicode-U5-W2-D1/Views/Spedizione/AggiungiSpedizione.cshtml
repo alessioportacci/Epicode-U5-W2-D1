@@ -4,7 +4,7 @@
     ViewBag.Title = "AggiungiSpedizione";
 }
 
-<h2>AggiungiSpedizione</h2>
+<h1>AggiungiSpedizione</h1>
 
 @using (Html.BeginForm())
 {
@@ -47,21 +47,9 @@
             @Html.ValidationMessageFor(m => m.DataPrevista)
         </div>
 
-        <div>
-            @Html.LabelFor(m => m.Destinazione, htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(m => m.Destinazione, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.Destinazione)
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.NomeMittente, htmlAttributes: new { @class = "form-label" })
-            @Html.EditorFor(m => m.NomeMittente, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.NomeMittente)
-        </div>
-
     </div>
 
-    <input type="submit" value="Aggiungi"/>
+    <input type="submit" value="Aggiungi" class="btn btn-primary mt-4" />
 
 }
 

@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "Spedizioni";
 }
-<h2>Spedizioni</h2>
+<h1>Spedizioni</h1>
 
 <div class="row row-cols-3">
     <div>
-        @Html.TextBox("Citta", "", new { @placeholder = "Inserire città", @class= "form-control" })
+        @Html.TextBox("Citta", "", new { @placeholder = "Inserire città", @class = "form-control" })
     </div>
     <div>
-        @Html.TextBox("Cliente", "", new {@placeholder = "Inserire mittente", @class = "form-control" })
+        @Html.TextBox("Cliente", "", new { @placeholder = "Inserire mittente", @class = "form-control" })
     </div>
     <div>
         <button id="Cerca" class="btn btn-primary"> Cerca </button>
@@ -17,6 +17,9 @@
 </div>
 
 <p> Spedizioni trovate: <span id="nSpedizioni" class="fw-bold"></span></p>
+
+@Html.ActionLink("Aggiungi spedizione", "AggiungiSpedizione", "Spedizione", null, new { @class = "btn btn-primary mb-2" })
+
 
 <table class="table">
     <thead>

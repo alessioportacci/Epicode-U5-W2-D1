@@ -193,6 +193,7 @@
     <Content Include="Views\Spedizione\Spedizioni.cshtml" />
     <Content Include="Views\Spedizione\AggiungiAggiornamento.cshtml" />
     <Content Include="Views\Spedizione\AggiungiSpedizione.cshtml" />
+    <Content Include="Views\Clienti\AggiungiCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

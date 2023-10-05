@@ -7,6 +7,8 @@
 
 <h1>Clienti </h1>
 
+@Html.ActionLink("Aggiungi cliente", "AggiungiCliente", "Clienti", null, new { @class = "btn btn-primary mb-2" })
+
 @foreach (Epicode_U5_W2_D1.Models.ClienteModel cliente in Model)
 {
     <h4> @cliente.Nome </h4>

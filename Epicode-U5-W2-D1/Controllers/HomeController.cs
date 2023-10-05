@@ -64,35 +64,36 @@ namespace Epicode_U5_W2_D1.Controllers
         [HttpPost]
         public ActionResult Login(CredenzialiClienteModel credenziali)
         {
-            try
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT Username, Password FROM [T_Clienti] " +
-                                                "WHERE @Username = Username AND @Password = Password", conn);
-                cmd.Parameters.AddWithValue("Username", credenziali.username);
-                cmd.Parameters.AddWithValue("Password", credenziali.password);
-                SqlDataReader sqlDataReader = cmd.ExecuteReader();
-                if (sqlDataReader.HasRows)
+            if(ModelState.IsValid)
+                try
                 {
-                    FormsAuthentication.SetAuthCookie(credenziali.username, false);
-                    return RedirectToAction("Index", "Home");
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT Username, Password FROM [T_Clienti] " +
+                                                    "WHERE @Username = Username AND @Password = Password", conn);
+                    cmd.Parameters.AddWithValue("Username", credenziali.username);
+                    cmd.Parameters.AddWithValue("Password", credenziali.password);
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        FormsAuthentication.SetAuthCookie(credenziali.username, false);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-            }
-            catch
-            {
-                ViewBag.Message = "C'è stato un errore con il login";
-                return View();
-            }
-            finally
-            {
-                conn.Close();
-            }
+                catch
+                {
+                    ViewBag.Message = "C'è stato un errore con il login";
+                    return View();
+                }
+                finally
+                {
+                    conn.Close();
+                }
 
             ViewBag.Message = "Credenziali non valide";
             return View();
         }
 
-
+        [Authorize]
         public ActionResult Logout() 
         {
             FormsAuthentication.SignOut();

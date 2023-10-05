@@ -44,5 +44,34 @@ namespace Epicode_U5_W2_D1.Controllers
             return View(clientiList);
         }
 
+
+        public ActionResult AggiungiCliente()
+        { 
+            return View(); 
+        }
+        [HttpPost]
+        public ActionResult AggiungiCliente(ClienteModel cliente)
+        {
+            if(ModelState.IsValid)
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO T_Clienti VALUES(@Username, @Password, @Nome, @Privato, @CFPIVA, @Ruolo)", conn);
+                    cmd.Parameters.AddWithValue("Username", cliente.Username);
+                    cmd.Parameters.AddWithValue("Password", cliente.Password);
+                    cmd.Parameters.AddWithValue("Nome", cliente.Nome);
+                    cmd.Parameters.AddWithValue("Privato", cliente.Privato);
+                    cmd.Parameters.AddWithValue("CFPIVA", cliente.CF_PIVA);
+                    cmd.Parameters.AddWithValue("Ruolo", cliente.Ruolo);
+                    cmd.ExecuteNonQuery();
+                }
+                catch { }
+                finally
+                {
+                    conn.Close();
+                }
+
+            return RedirectToAction("Index");
+        }
     }
 }

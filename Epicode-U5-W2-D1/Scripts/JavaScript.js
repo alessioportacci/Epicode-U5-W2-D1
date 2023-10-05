@@ -8,6 +8,8 @@
             bg = " bg-primary "
         else if (stato == "Consegnato")
             bg = " bg-success "
+        else if (stato == "Annullata")
+            bg = " bg-danger "
 
         return "<button type=\"button\" class=\"w-100 btn btn-light position-relative\">" + 
                     stato + 

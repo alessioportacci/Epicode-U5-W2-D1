@@ -79,7 +79,7 @@ namespace Epicode_U5_W2_D1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
+        [Authorize]
         public ActionResult AggiungiAggiornamento(int id) 
         {
             List<StatiDropdownModel> statiList = new List<StatiDropdownModel>();
@@ -104,26 +104,28 @@ namespace Epicode_U5_W2_D1.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AggiungiAggiornamento(AddAggiornamentoModel agg) 
         {
-            try
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO T_Aggiornamento VALUES(@Data, @Aggiornamento, @Citta, @Stato, @Spedizione)", conn);
-                cmd.Parameters.AddWithValue("Data", DateTime.Now);
-                cmd.Parameters.AddWithValue("Aggiornamento", agg.Aggiornamento);
-                cmd.Parameters.AddWithValue("Citta", agg.CittaCorrente);
-                cmd.Parameters.AddWithValue("Stato", agg.FkStato);
-                cmd.Parameters.AddWithValue("Spedizione", agg.FkSpedizione);
-                cmd.ExecuteNonQuery();
-            }
-            catch
-            { }
-            finally
-            {
-                conn.Close();
-            }
+            if(ModelState.IsValid)
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO T_Aggiornamento VALUES(@Data, @Aggiornamento, @Citta, @Stato, @Spedizione)", conn);
+                    cmd.Parameters.AddWithValue("Data", DateTime.Now);
+                    cmd.Parameters.AddWithValue("Aggiornamento", agg.Aggiornamento);
+                    cmd.Parameters.AddWithValue("Citta", agg.CittaCorrente);
+                    cmd.Parameters.AddWithValue("Stato", agg.FkStato);
+                    cmd.Parameters.AddWithValue("Spedizione", agg.FkSpedizione);
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                { }
+                finally
+                {
+                    conn.Close();
+                }
 
             return RedirectToAction("Index", new { id = agg.FkSpedizione });
         }
@@ -134,6 +136,7 @@ namespace Epicode_U5_W2_D1.Controllers
             return View();
         }
 
+        [Authorize]
         public JsonResult SpedizioniFilter(string User, string Citta, string Cliente)
         {
             List<SpedizioneModel> spedizioniList = new List<SpedizioneModel>();
@@ -173,44 +176,66 @@ namespace Epicode_U5_W2_D1.Controllers
             return Json(spedizioniList, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [Authorize]
         public ActionResult AggiungiSpedizione()
         {
             return View();
         }
-
+        [Authorize]
         [HttpPost]
         public ActionResult AggiungiSpedizione(SpedizioneModel spedizione)
         {
-            try
-            {
-                string fkCliente = string.Empty;
+            if(ModelState.IsValid)
+                try
+                {
+                    string appoggio = string.Empty;
 
+                    conn.Open();
 
-                conn.Open();
+                    //Prendo l'id del cliente
+                    SqlCommand cmd = new SqlCommand("SELECT IdCliente, Username FROM T_Clienti WHERE Username = '" + User.Identity.Name + "'", conn);
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    while (sqlDataReader.Read())
+                        appoggio += sqlDataReader["IdCliente"].ToString();
+                
+                    conn.Close();
+                    conn.Open();
+                
+                    //Inserisco la spedizione
+                    cmd = new SqlCommand("INSERT INTO T_Spedizioni VALUES(@Destinatario, @CFDestinatario, @Peso, @Destinazione, @DataSpedizione, @DataPrevista, @FkCliente)", conn);
+                    cmd.Parameters.AddWithValue("Destinatario", spedizione.NomeDestinatario);
+                    cmd.Parameters.AddWithValue("CFDestinatario", spedizione.CFDestinatario);
+                    cmd.Parameters.AddWithValue("Peso", spedizione.Peso);
+                    cmd.Parameters.AddWithValue("Destinazione", spedizione.Destinazione);
+                    cmd.Parameters.AddWithValue("DataSpedizione", DateTime.Parse(spedizione.DataSpedizione));
+                    cmd.Parameters.AddWithValue("DataPrevista", DateTime.Parse(spedizione.DataSpedizione));
+                    cmd.Parameters.AddWithValue("FkCliente", appoggio);
+                    cmd.ExecuteNonQuery();
 
-                SqlCommand cmd = new SqlCommand("SELECT IdCliente, Username FROM T_Clienti WHERE Username = " + User.Identity.Name, conn);
-                cmd.ExecuteReader();
-                SqlDataReader sqlDataReader = cmd.ExecuteReader();
-                while (sqlDataReader.Read())
-                    fkCliente += sqlDataReader["IdCliente"];
-                cmd.Dispose();
+                    conn.Close();
+                    conn.Open();
 
-                cmd = new SqlCommand("INSERT INTO T_Spedizioni VALUES(@Destinatario, @CFDestinatario, @Peso, @Destinazione, @DataSpedizione, @DataPrevista, @FkCliente)", conn);
-                cmd.Parameters.AddWithValue("Destinatario", spedizione.NomeDestinatario);
-                cmd.Parameters.AddWithValue("CFDestinatario", spedizione.CFDestinatario);
-                cmd.Parameters.AddWithValue("Peso", spedizione.Peso);
-                cmd.Parameters.AddWithValue("Destinazione", spedizione.Destinazione);
-                cmd.Parameters.AddWithValue("DataSpedizione", spedizione.DataSpedizione);
-                cmd.Parameters.AddWithValue("DataPrevista", spedizione.DataPrevista);
-                cmd.ExecuteNonQuery();
-            }
-            catch
-            { }
-            finally
-            {
-                conn.Close();
-            }
+                    //Prendo il Pk della spedizione
+                    cmd = new SqlCommand("SELECT TOP 1 PkSpedizione FROM T_Spedizioni ORDER BY PkSpedizione DESC", conn);
+                    sqlDataReader = cmd.ExecuteReader();
+                    while (sqlDataReader.Read())
+                        appoggio = sqlDataReader["PkSpedizione"].ToString();
+
+                    conn.Close();
+                    conn.Open();
+
+                    //Inserisco la nuova spedizione
+                    cmd = new SqlCommand(String.Concat("INSERT INTO T_Aggiornamento VALUES('", DateTime.Now.Date,"', 'Ordine registrato', '_', 1, @FkSpedizione)"), conn);
+                    cmd.Parameters.AddWithValue("FkSpedizione", appoggio);
+                    cmd.ExecuteNonQuery();
+
+                }
+                catch
+                { }
+                finally
+                {
+                    conn.Close();
+                }
             return RedirectToAction("Spedizioni");
         }
 
