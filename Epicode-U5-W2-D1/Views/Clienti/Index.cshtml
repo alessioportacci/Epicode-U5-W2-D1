@@ -5,15 +5,36 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>Clienti </h1>
 
 @foreach (Epicode_U5_W2_D1.Models.ClienteModel cliente in Model)
 {
-    <p> @cliente.Username </p>
-    <p> @cliente.Password </p>
-    <p> @cliente.Nome </p>
-    <p> @cliente.Privato </p>
-    <p> @cliente.CF_PIVA </p>
-    <p> @cliente.Ruolo </p>
+    <h4> @cliente.Nome </h4>
+    <div class="row row-cols-1 row-cols-md-2">
+        <p>
+            <span class="fw-bold"> Username: </span>
+            @cliente.Username
+        </p>
+        <p>
+            <span class="fw-bold"> Password: </span>
+            @cliente.Password
+        </p>
+
+        <p>
+            @if (cliente.Privato)
+            {
+                <span class="fw-bold">
+                    Codice Fiscale:
+                </span>
+            }
+            else
+            {
+                <span class="fw-bold">
+                    Partita IVA:
+                </span>
+            }
+            @cliente.CF_PIVA
+        </p>
+    </div>
     <hr />
 }

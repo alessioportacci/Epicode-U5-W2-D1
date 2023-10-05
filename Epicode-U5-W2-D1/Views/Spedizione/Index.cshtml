@@ -4,26 +4,101 @@
     ViewBag.Title = "Spedizione";
 }
 
-@if(User.IsInRole("Admin") || User.IsInRole(Model.username))
-{
-    @Html.ActionLink("Aggiungi aggiornamenti", "AggiungiAggiornamento", new { id = Url.RequestContext.RouteData.Values["id"] })
-}
+<h1>
+    Spedizione n.@Model.PkSpedizione
+</h1>
+
+<div>
+
+    <p class="fs-5">
+        <span class="fw-bold"> Stato: </span>
+        @Model.Stato
+    </p>
+
+</div>
+
+<hr />
+
+<div class="shadow rounded p-3">
+
+    <div class="row row-cols-1 row-cols-2">
+
+        <div>
+            <p>
+                <span class="fw-bold"> Spedito il </span>
+                @Model.DataSpedizione
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <span class="fw-bold"> Arrivo previsto per il </span>
+                @Model.DataPrevista
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <span class="fw-bold"> Destinazione: </span>
+                @Model.Destinazione
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <span class="fw-bold"> MIttente: </span>
+                @Model.NomeMittente
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <span class="fw-bold"> Peso: </span>
+                @Model.Peso kg
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<hr />
+
+<div class="shadow rounded p-3">
+    <div class="row row-cols-1 row-cols-2">
+
+        <div>
+            <p>
+                <span class="fw-bold"> Destinatario: </span>
+                @Model.NomeDestinatario
+            </p>
+        </div>
+
+        <div>
+            <p>
+                <span class="fw-bold"> Codice Fiscale: </span>
+                @Model.CFDestinatario
+            </p>
+        </div>
+    </div>
+</div>
 
 
 
-<h2>Spedizione</h2>
-
-@Model.PkSpedizione
-@Model.NomeDestinatario
-@Model.CFDestinatario
-@Model.Peso
-@Model.Destinazione
-@Model.DataSpedizione
-@Model.DataPrevista
-@Model.NomeMittente
-@Model.Stato
-@Model.username
 
 
-@Html.ActionLink("Visualizza aggiornamenti", "Aggiornamenti", new { id = Model.PkSpedizione })
+
+    <div class="mt-5">
+
+        <h2>Aggiornamenti</h2>
+
+        @if (User.IsInRole("Admin") || User.IsInRole(Model.username))
+        {
+            @Html.ActionLink("Aggiungi", "AggiungiAggiornamento", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary my-3" })
+        }
+
+        @{Html.RenderAction("Aggiornamenti", "Spedizione", new { id = Model.PkSpedizione });}
+
+    </div>
+
 

@@ -43,7 +43,7 @@
                                 "<td>" + v.DataPrevista + "</td>" +
                                 "<td>" + v.Destinazione + "</td>" +
                                 "<td>" + getStatoHTML(v.Stato) + "</td>" +
-                                "<td> <a href='/Spedizione/Aggiornamenti/" + v.PkSpedizione + "'>Visualizza aggiornamenti</a> </td>" +
+                                "<td> <a href='/Spedizione/Index/" + v.PkSpedizione + "' class='btn btn-secondary'>Visualizza</a> </td>" +
                             "<tr>"
                     $("#tbody").append(tr);
                 })

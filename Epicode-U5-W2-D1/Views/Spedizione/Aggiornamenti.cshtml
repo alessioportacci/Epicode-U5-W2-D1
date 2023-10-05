@@ -3,15 +3,36 @@
     ViewBag.Title = "Aggiornamenti";
 }
 
-<h2>Aggiornamenti</h2>
-
 
 
 @foreach (Epicode_U5_W2_D1.Models.AggiornamentoModel aggiornamento in Model)
 {
-    <p>Aggiornamento: @aggiornamento.Aggiornamento</p>
-    <p>Stato: @aggiornamento.Stato</p>
-    <p>DataAggiornamento: @aggiornamento.DataAggiornamento</p>
-    <p>Citta corrente: @aggiornamento.CittaCorrente</p>
+    <div class="shadow rounded p-3">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div>
+                <p>
+                    <span class="fw-bold"> Stato: </span>
+                    @aggiornamento.Stato
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span class="fw-bold"> DataAggiornamento: </span>
+                    @aggiornamento.DataAggiornamento
+                </p>
+            </div>
+
+            <div>
+                <p>
+                    <span class="fw-bold"> Citta corrente: </span>
+                    @aggiornamento.CittaCorrente
+                </p>
+            </div>
+        </div>
+
+        <p class="fw-bold">Aggiornamento:</p>
+        <p> @aggiornamento.Aggiornamento</p>
+    </div>
+
     <hr />
 }

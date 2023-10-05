@@ -6,13 +6,13 @@
 
 <div class="row row-cols-3">
     <div>
-        @Html.TextBox("Citta", "", new { @placeholder = "Inserire città" })
+        @Html.TextBox("Citta", "", new { @placeholder = "Inserire città", @class= "form-control" })
     </div>
     <div>
-        @Html.TextBox("Cliente", "", new {@placeholder = "Inserire mittente"})
+        @Html.TextBox("Cliente", "", new {@placeholder = "Inserire mittente", @class = "form-control" })
     </div>
     <div>
-        <button id="Cerca"> Cerca </button>
+        <button id="Cerca" class="btn btn-primary"> Cerca </button>
     </div>
 </div>
 

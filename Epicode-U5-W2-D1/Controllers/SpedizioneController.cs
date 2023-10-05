@@ -65,9 +65,9 @@ namespace Epicode_U5_W2_D1.Controllers
                         CittaCorrente = sqlDataReader["CittaCorrente"].ToString(),
                         Stato = sqlDataReader["Stato"].ToString(),
                         DataAggiornamento = DateTime.Parse(sqlDataReader["DataAggiornamento"].ToString()),
-                        Aggiornamento = sqlDataReader["DataAggiornamento"].ToString(),
+                        Aggiornamento = sqlDataReader["Aggiornamento"].ToString(),
                     });
-                return View(aggiornamentiList);
+                return PartialView(aggiornamentiList);
             }
             catch 
             { }
@@ -125,7 +125,7 @@ namespace Epicode_U5_W2_D1.Controllers
                 conn.Close();
             }
 
-            return RedirectToAction("Aggiornamenti", new { id = agg.FkSpedizione });
+            return RedirectToAction("Index", new { id = agg.FkSpedizione });
         }
 
         [Authorize]
@@ -182,6 +182,35 @@ namespace Epicode_U5_W2_D1.Controllers
         [HttpPost]
         public ActionResult AggiungiSpedizione(SpedizioneModel spedizione)
         {
+            try
+            {
+                string fkCliente = string.Empty;
+
+
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("SELECT IdCliente, Username FROM T_Clienti WHERE Username = " + User.Identity.Name, conn);
+                cmd.ExecuteReader();
+                SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                while (sqlDataReader.Read())
+                    fkCliente += sqlDataReader["IdCliente"];
+                cmd.Dispose();
+
+                cmd = new SqlCommand("INSERT INTO T_Spedizioni VALUES(@Destinatario, @CFDestinatario, @Peso, @Destinazione, @DataSpedizione, @DataPrevista, @FkCliente)", conn);
+                cmd.Parameters.AddWithValue("Destinatario", spedizione.NomeDestinatario);
+                cmd.Parameters.AddWithValue("CFDestinatario", spedizione.CFDestinatario);
+                cmd.Parameters.AddWithValue("Peso", spedizione.Peso);
+                cmd.Parameters.AddWithValue("Destinazione", spedizione.Destinazione);
+                cmd.Parameters.AddWithValue("DataSpedizione", spedizione.DataSpedizione);
+                cmd.Parameters.AddWithValue("DataPrevista", spedizione.DataPrevista);
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            { }
+            finally
+            {
+                conn.Close();
+            }
             return RedirectToAction("Spedizioni");
         }
 
